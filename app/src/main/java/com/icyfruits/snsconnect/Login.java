@@ -41,7 +41,7 @@ public class Login extends Activity {
     }
 
 //    todo
-
+// https://github.com/niravkalola/FacebookLoginSample-master/blob/95b74d17839aeb72f5e9dc5c8be38debc8cc90c1/app/src/main/java/com/example/android/facebookloginsample/LoginActivity.java
 
 
     public void login(){
