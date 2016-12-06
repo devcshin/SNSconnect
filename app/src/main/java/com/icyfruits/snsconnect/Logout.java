@@ -5,14 +5,11 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.facebook.login.LoginManager;
 
@@ -30,11 +27,17 @@ public class Logout extends AppCompatActivity {
 
     Bitmap bitmap;
     User user;
+    private TextView showname;
+    private TextView showgender;
+    private TextView showmail;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.logout);
+        this.showmail = (TextView) findViewById(R.id.showmail);
+        this.showgender = (TextView) findViewById(R.id.showgender);
+        this.showname = (TextView) findViewById(R.id.showname);
         this.btnLogout = (TextView) findViewById(R.id.btnLogout);
         this.profileImage = (ImageView) findViewById(R.id.profileImage);
         user = PrefUtils.getCurrentUser(Logout.this);
@@ -45,8 +48,8 @@ public class Logout extends AppCompatActivity {
             protected Void doInBackground(Void... params) {
                 URL imageURL = null;
                 try {
-                    String s = getResources().getString(R.string.facebook_app_id);
-                    imageURL = new URL(("https://graph.facebook.com/" + s + "/picture?type=large"));
+//                    String s = getResources().getString(R.string.facebook_app_id);
+                    imageURL = new URL(("https://graph.facebook.com/" + user.facebookID + "/picture?type=large"));
 
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
@@ -63,6 +66,9 @@ public class Logout extends AppCompatActivity {
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
                 profileImage.setImageBitmap(bitmap);
+                showgender.setText(user.gender);
+                showname.setText(user.name);
+                showmail.setText(user.email);
             }
         }.execute();
 
