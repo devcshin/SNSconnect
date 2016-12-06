@@ -46,11 +46,11 @@ public class Login extends Activity {
         this.activitymain = (RelativeLayout) findViewById(R.id.activity_main);
         this.loginbutton = (LoginButton) findViewById(R.id.login_button);
 
-        if(PrefUtils.getCurrentUser(Login.this)!=null){
-            Intent homeIntent = new Intent(Login.this, Logout.class);
-            startActivity(homeIntent);
-            finish();
-        }
+//        if(PrefUtils.getCurrentUser(Login.this)!=null){
+//            Intent homeIntent = new Intent(Login.this, Logout.class);
+//            startActivity(homeIntent);
+//            finish();
+//        }
     }
 
 //    todo
@@ -79,13 +79,17 @@ public class Login extends Activity {
                 loginButton.registerCallback(callbackManager, mCallBack);
                 loginButton.setPressed(false);
                 loginButton.invalidate();
+
+
             }
         });
-
-
-
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+    }
 
     private FacebookCallback<LoginResult> mCallBack = new FacebookCallback<LoginResult>() {
         @Override
